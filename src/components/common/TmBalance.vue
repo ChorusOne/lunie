@@ -12,20 +12,6 @@
         <h3>Available {{ num.viewDenom(bondDenom) }}</h3>
         <h2>{{ unbondedAtoms }}</h2>
       </div>
-      <div v-if="rewards" class="top-section">
-        <h3>Rewards</h3>
-        <h2>{{ rewards }}</h2>
-        <TmBtn
-          v-show="totalRewards > 0"
-          id="withdraw-btn"
-          class="withdraw-rewards"
-          :value="connected ? 'Withdraw' : 'Connecting...'"
-          :to="''"
-          type="link"
-          size="sm"
-          @click.native="onWithdrawal"
-        />
-      </div>
     </div>
     <slot />
     <ModalWithdrawRewards
@@ -38,14 +24,12 @@
 <script>
 import num from "scripts/num"
 import Bech32 from "common/Bech32"
-import TmBtn from "common/TmBtn"
 import ModalWithdrawRewards from "staking/ModalWithdrawRewards"
 import { mapGetters } from "vuex"
 export default {
   name: `tm-balance`,
   components: {
     Bech32,
-    TmBtn,
     ModalWithdrawRewards
   },
   data() {

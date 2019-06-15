@@ -32,6 +32,13 @@
         class="tm-li-balance"
         @show-modal="showModal"
       />
+
+      <LiCoin
+        converted="12.39"
+        liquid="19"
+        :coin="delegatedCoin"
+        class="tm-li-balance"
+      />
     </template>
     <SendModal ref="sendModal" />
   </TmPage>
@@ -56,7 +63,14 @@ export default {
     SendModal,
     Bech32
   },
-  data: () => ({ num, showSendModal: false }),
+  data: () => ({
+      num,
+      showSendModal: false,
+      delegatedCoin: {
+          denom: "CHATOMS",
+          amount: 100000
+      }
+  }),
   computed: {
     ...mapGetters([`wallet`, `connected`, `session`]),
     dataEmpty() {

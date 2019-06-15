@@ -44,12 +44,11 @@
           : `--`
       }}
     </td>
-    <td class="li-validator__rewards">
-      {{
-        validator.rewards
-          ? num.shortDecimals(num.atoms(validator.rewards))
-          : `--`
-      }}
+    <td class="li-validator__voucher-conversion-rate thin-column">
+      {{ validator.voucher_conversion_rate }}%
+    </td>
+    <td class="li-validator__conversion-weekly-change thin-column">
+      + {{ validator.conversion_weekly_change }}%
     </td>
     <td class="li-validator__voting-power">
       {{ validator.tokens ? percentOfVotingPower : `--` }}
@@ -120,3 +119,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.thin-column {
+  text-align: center;
+}
+</style>

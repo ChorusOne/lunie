@@ -74,14 +74,12 @@ export default {
               ? committedDelegations[v.operator_address]
               : 0,
           commission: v.commission.rate,
+          voucher_conversion_rate: 1,
+          conversion_weekly_change: 1,
           voting_power: BN(v.tokens)
             .div(pool.pool.bonded_tokens)
             .toFixed(10),
           keybase: keybase[v.description.identity],
-          rewards:
-            session.signedIn && distribution.rewards[v.operator_address]
-              ? distribution.rewards[v.operator_address][this.bondDenom]
-              : 0,
           uptime: signingInfo
             ? (rollingWindow - signingInfo.missed_blocks_counter) /
               rollingWindow
@@ -111,9 +109,14 @@ export default {
           )} you have delegated to this validator`
         },
         {
-          title: `Rewards`,
-          value: `rewards`,
-          tooltip: `Rewards you have earned from this validator`
+          title: `Voucher Conversion Rate`,
+          value: `voucher_conversion_rate`,
+          tooltip: `Voucher Conversion Rate`
+        },
+        {
+          title: `Conversion Weekly Change`,
+          value: `conversion_weekly_change`,
+          tooltip: `Conversion Weekly Change`
         },
         {
           title: `Voting Power`,

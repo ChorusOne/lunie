@@ -18,7 +18,7 @@
     "build:keybase-cache": "babel-node --presets @babel/env tasks/keybase-fallback.js",
     "build:ui": "cross-env NODE_ENV=production webpack --colors --config webpack.config.js --mode=production",
     "start": "npm run frontend & npm run proxy & npm run testnet:start",
-    "serve": "live-server --https=node_modules/live-server-https --port=9080 ./dist",
+    "serve": "live-server --port=9080 ./dist",
     "lint": "npm run lint:eslint && npm run lint:css",
     "lint:eslint": "eslint -f ./node_modules/eslint-friendly-formatter \"{,**/}*.{js,vue}\"",
     "lint:css": "stylelint '**/*.{css,vue}'",
@@ -35,7 +35,7 @@
     "testnet:stop": "docker stop testnet",
     "proxy": "node ./tasks/local-testnet/proxy.js",
     "certificates": "docker-compose -f tasks/certificates/docker-compose.yml up",
-    "frontend": "cross-env NODE_ENV=development webpack-dev-server --hot --colors --config webpack.config.js --port 9080 --https --mode=development --cert 'certs/dev.crt' --key 'certs/dev.key'",
+    "frontend": "cross-env NODE_ENV=development webpack-dev-server --hot --colors --config webpack.config.js --port 9080 --mode=development --cert 'certs/dev.crt' --key 'certs/dev.key'",
     "changelog": "simsala log --pending-path ./changes",
     "release": "git checkout develop & git pull & git push origin develop:release"
   },

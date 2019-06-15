@@ -7,9 +7,11 @@
       <div class="li-coin__content-left">
         <p class="coin-denom">
           {{ denomination }}
+          <span v-if="liquid > 0"> (liquid in {{ liquid }} days) </span>
         </p>
         <p class="coin-amount">
           {{ amount }}
+          <span v-if="converted > 0"> ({{ converted }} Staked ATOM) </span>
         </p>
       </div>
       <!-- disable send on the hub until send is enabled -->
@@ -41,6 +43,8 @@ export default {
     TmBtn
   },
   props: {
+    converted: { type: Number, required: false, default: 0 },
+    liquid: { type: Number, required: false, default: 0 },
     coin: {
       type: Object,
       required: true
@@ -102,6 +106,17 @@ export default {
   font-size: var(--lg);
   color: var(--bright);
   font-weight: 500;
+}
+
+.coin-amount > span,
+.coin-denom > span {
+    font-weight: 300 !important;
+    color: #AAA;
+}
+
+.coin-denom > span {
+    font-size: 16px;
+    vertical-align: center;
 }
 
 @media screen and (max-width: 425px) {

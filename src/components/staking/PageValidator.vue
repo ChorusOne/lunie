@@ -64,12 +64,17 @@
               <dd>{{ myDelegation }}</dd>
             </dl>
             <dl class="info_dl colored_dl">
-              <dt>My Rewards</dt>
-              <dd v-if="rewards > 0">
-                {{ rewards | atoms | shortDecimals }}
-                {{ bondDenom | viewDenom }}
+              <dt>Delegation Vouchers</dt>
+              <dd v-if="1 > 0">
+                {{ 23992912 | atoms | shortDecimals }}
               </dd>
               <dd v-else>--</dd>
+            </dl>
+            <dl class="info_dl colored_dl">
+              <dt>Voucher to Atom Conversion Rate</dt>
+              <dd>
+                1.3
+              </dd>
             </dl>
           </div>
 
