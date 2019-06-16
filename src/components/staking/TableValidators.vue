@@ -5,8 +5,10 @@
         <PanelSort :sort="sort" :properties="properties" />
       </thead>
       <tbody>
+        {{ totalPoolSpace }}
         <LiValidator
           v-for="validator in sortedEnrichedValidators"
+          :space="totalPoolSpace"
           :key="validator.operator_address"
           :validator="validator"
         />
@@ -53,6 +55,17 @@ export default {
       `keybase`,
       `pool`
     ]),
+    totalPoolSpace() {
+        const { validators, pool } = this
+        let total = BN(0)
+        validators.forEach(validator => {
+            const next = BN(validator.tokens)
+            .div(pool.pool.bonded_tokens)
+            .plus(total);
+            total = next;
+        });
+        return total;
+    },
     enrichedValidators(
       {
         validators,

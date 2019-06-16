@@ -73,6 +73,10 @@ export default {
     validator: {
       type: Object,
       required: true
+    },
+    space: {
+      type: BN,
+      required: true
     }
   },
   data: () => ({ num }),
@@ -110,6 +114,7 @@ export default {
       return num.percent(
         BN(this.validator.tokens)
           .div(this.pool.pool.bonded_tokens)
+          .div(this.space)
           .toFixed(4)
       )
     }

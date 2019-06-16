@@ -15,10 +15,6 @@ export default {
     query: ``,
     tabs: [
       {
-        displayName: `My Delegations`,
-        pathName: `My Delegations`
-      },
-      {
         displayName: `Validators`,
         pathName: `Validators`
       },
