@@ -32,20 +32,13 @@
         class="tm-li-balance"
         @show-modal="showModal"
       />
-
-      <LiCoin
-        converted="12.39"
-        liquid="19"
-        :coin="delegatedCoin"
-        class="tm-li-balance"
-      />
     </template>
     <SendModal ref="sendModal" />
   </TmPage>
 </template>
 
 <script>
-import num from "scripts/num"
+import num, { atoms, shortDecimals } from "scripts/num"
 import { mapGetters, mapActions } from "vuex"
 import orderBy from "lodash.orderby"
 import LiCoin from "./LiCoin"
@@ -63,6 +56,10 @@ export default {
     SendModal,
     Bech32
   },
+  filters: {
+    atoms,
+    shortDecimals
+  },
   data: () => ({
       num,
       showSendModal: false,
@@ -72,16 +69,29 @@ export default {
       }
   }),
   computed: {
-    ...mapGetters([`wallet`, `connected`, `session`]),
+    ...mapGetters([`delegates`, `wallet`, `connected`, `session`]),
     dataEmpty() {
       return this.wallet.balances.length === 0
     },
     filteredBalances() {
-      return orderBy(
+      const { delegates } = this
+      const orderedBalances = orderBy(
         this.wallet.balances,
         [`amount`, balance => num.viewDenom(balance.denom).toLowerCase()],
         [`desc`, `asc`]
       )
+
+      return orderedBalances.map(balance => {
+        const delegate = delegates.delegates.find(delegate => {
+          return balance.denom.startsWith(delegate.shares_denom_prefix)
+        })
+
+        return {
+          calculatedValue: delegate && (balance.amount * (delegate.tokens / delegate.delegator_shares)),
+          ...balance,
+          denom: delegate ? delegate.shares_denom_prefix : balance.denom
+        }
+      })
     }
   },
   async mounted() {

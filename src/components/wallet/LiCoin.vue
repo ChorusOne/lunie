@@ -11,7 +11,9 @@
         </p>
         <p class="coin-amount">
           {{ amount }}
-          <span v-if="converted > 0"> ({{ converted }} Staked ATOM) </span>
+          <span v-if="coin.calculatedValue > 0">
+            ({{ coin.calculatedValue | atoms | shortDecimals }} Staked ATOM)
+          </span>
         </p>
       </div>
       <!-- disable send on the hub until send is enabled -->
@@ -34,7 +36,7 @@
 </template>
 
 <script>
-import num from "scripts/num"
+import num, { atoms, shortDecimals } from "scripts/num"
 import TmBtn from "common/TmBtn"
 import { mapGetters } from "vuex"
 export default {
@@ -42,8 +44,11 @@ export default {
   components: {
     TmBtn
   },
+  filters: {
+    atoms,
+    shortDecimals
+  },
   props: {
-    converted: { type: Number, required: false, default: 0 },
     liquid: { type: Number, required: false, default: 0 },
     coin: {
       type: Object,

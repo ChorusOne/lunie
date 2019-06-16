@@ -64,16 +64,16 @@
               <dd>{{ myDelegation }}</dd>
             </dl>
             <dl class="info_dl colored_dl">
-              <dt>Delegation Vouchers</dt>
+              <dt>Delegation Vouchers <br/> ({{ validator.shares_denom_prefix.toUpperCase() }} ATOMS)</dt>
               <dd v-if="1 > 0">
-                {{ 23992912 | atoms | shortDecimals }}
+                {{ validator.delegator_shares | atoms | shortDecimals }}
               </dd>
               <dd v-else>--</dd>
             </dl>
             <dl class="info_dl colored_dl">
               <dt>Voucher to Atom Conversion Rate</dt>
               <dd>
-                1.3
+                {{ validator.tokens / validator.delegator_shares | shortDecimals }}
               </dd>
             </dl>
           </div>
@@ -106,7 +106,7 @@
           <div class="column">
             <dl class="info_dl">
               <dt>First Seen</dt>
-              <dd>Block #{{ validator.bond_height }}</dd>
+              <dd>Block #{{ validator.signing_info.start_height }}</dd>
             </dl>
             <dl class="info_dl">
               <dt>Full Operator Address</dt>

@@ -74,8 +74,7 @@ export default {
               ? committedDelegations[v.operator_address]
               : 0,
           commission: v.commission.rate,
-          voucher_conversion_rate: 1,
-          conversion_weekly_change: 1,
+          voucher_conversion_rate: v.tokens / v.delegator_shares,
           voting_power: BN(v.tokens)
             .div(pool.pool.bonded_tokens)
             .toFixed(10),
@@ -112,11 +111,6 @@ export default {
           title: `Voucher Conversion Rate`,
           value: `voucher_conversion_rate`,
           tooltip: `Voucher Conversion Rate`
-        },
-        {
-          title: `Conversion Weekly Change`,
-          value: `conversion_weekly_change`,
-          tooltip: `Conversion Weekly Change`
         },
         {
           title: `Voting Power`,

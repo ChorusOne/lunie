@@ -77,7 +77,7 @@ export default ({ node }) => {
 
       state.loading = true
       try {
-        const rewardsArray = await node.get.delegatorRewards(session.address)
+        const rewardsArray = [];
         const rewards = coinsToObject(rewardsArray)
         commit(`setTotalRewards`, rewards || {})
         commit(`setDistributionError`, null)
